@@ -20,7 +20,7 @@ public class Accounts {
     private String phonenumber;
     private String activationCode;
     private String passwordresetCode;
-    private String activeAccount;
-    private String provider;
-    private String roles;
+    private Integer activeAccount;
+    private Integer provider;
+    private Integer roles;
 }
