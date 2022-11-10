@@ -1,21 +1,42 @@
 package com.tanphi.laptopshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="orderdetail")
-@Data
 public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer orderDetailId;
+    @EmbeddedId
+    private OrderDetailIDKey orderDetailIDKey;
     private Integer quantity;
-    private Integer isDelete;
 
-    @ManyToOne
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+
+	public Orders getOrder() {
+		return order;
+	}
+
+	public void setOrder(Orders order) {
+		this.order = order;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@ManyToOne
     @JoinColumn (name = "orderId", nullable = false,referencedColumnName = "orderId",insertable=false, updatable=false)
     @JsonBackReference
     private Orders order;

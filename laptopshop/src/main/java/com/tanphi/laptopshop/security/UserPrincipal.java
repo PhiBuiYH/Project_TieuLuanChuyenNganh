@@ -1,7 +1,6 @@
 package com.tanphi.laptopshop.security;
 
 import com.tanphi.laptopshop.entity.Accounts;
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,15 +9,22 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-@Data
+@SuppressWarnings("serial")
 public class UserPrincipal implements UserDetails {
 
-    private final Integer id;
-    private final String email;
-    private final String password;
-    private final Collection<? extends GrantedAuthority> authorities;
+    private Integer id;
+    private String email;
+    private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public static UserPrincipal create(Accounts account) {
+	public UserPrincipal(Integer id, String email, String password, List<GrantedAuthority> authorities) {
+		this.id=id;
+		this.email=email;
+		this.password=password;
+		this.authorities=authorities;
+	}
+
+	public static UserPrincipal create(Accounts account) {
         String userRole=account.getRoles().toString();
         List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(userRole));
         return new UserPrincipal(account.getAccountId(), account.getGmail(), account.getPasswords(), authorities);
@@ -58,4 +64,12 @@ public class UserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 }

@@ -5,6 +5,8 @@ import com.tanphi.laptopshop.entity.enums.IsDeleteStatus;
 import com.tanphi.laptopshop.exception.DuplicateRecoredException;
 import com.tanphi.laptopshop.repository.AccountsRepo;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service("userDetailsServiceImpl")
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-
-    private final AccountsRepo accountsRepo;
+	@Autowired
+    private AccountsRepo accountsRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws DuplicateRecoredException {

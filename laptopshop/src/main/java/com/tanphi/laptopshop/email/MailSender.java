@@ -2,14 +2,16 @@ package com.tanphi.laptopshop.email;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import javax.mail.MessagingException;
 
 import javax.mail.internet.MimeMessage;
 import java.util.Map;
@@ -17,9 +19,10 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class MailSender {
-
-    private final JavaMailSender mailSender;
-    private final SpringTemplateEngine thymeleafTemplateEngine;
+	@Autowired
+    private JavaMailSender mailSender;
+	@Autowired
+    private SpringTemplateEngine thymeleafTemplateEngine;
 
     @Value("${spring.mail.username}")
     private String username;

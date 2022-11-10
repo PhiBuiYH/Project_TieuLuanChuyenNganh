@@ -9,9 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@SuppressWarnings("deprecation")
 @SpringBootApplication
 @EnableJpaRepositories
-@EnableWebMvc
+@EnableWebMvc 
 @EnableSwagger2
 public class LaptopshopApplication {
 
@@ -22,7 +23,6 @@ public class LaptopshopApplication {
 		return new WebMvcConfigurerAdapter() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("*");
 				registry.addMapping("/**").allowedOrigins("*");
 			}
 		};

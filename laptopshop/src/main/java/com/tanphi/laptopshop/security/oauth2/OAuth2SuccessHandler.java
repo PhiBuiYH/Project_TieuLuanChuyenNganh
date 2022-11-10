@@ -1,6 +1,7 @@
 package com.tanphi.laptopshop.security.oauth2;
 
 import com.tanphi.laptopshop.entity.Accounts;
+import com.tanphi.laptopshop.entity.enums.ActiveAccountStatus;
 import com.tanphi.laptopshop.entity.enums.IsDeleteStatus;
 import com.tanphi.laptopshop.repository.AccountsRepo;
 import com.tanphi.laptopshop.security.JwtProvider;
@@ -20,7 +21,8 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    private final JwtProvider jwtProvider;
+	@Autowired
+    private JwtProvider jwtProvider;
     @Autowired
     AccountsRepo accountsRepo;
 
@@ -32,16 +34,24 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException {
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String email = (String) oAuth2User.getAttributes().get("email");
-        String token = jwtProvider.createToken(email, "CUSTOMER");
-        Accounts account=accountsRepo.findAccountsByGmailAndActiveAccount(email, IsDeleteStatus.NO.getCode());;
-        String Id=account.getAccountId().toString();
-        String username=account.getUsername();
-        String provider=account.getProvider().toString();
-        String uri = UriComponentsBuilder.fromUriString(hostname + "/oauth2/redirect")
-                .queryParam("token", token).queryParam("id",Id).queryParam("username",username).queryParam("userRoles","CUSTOMER").queryParam("provider",provider)
-                .build().toUriString();
-        getRedirectStrategy().sendRedirect(request, response, uri);
+    	try
+    	{
+    		OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = (String) oAuth2User.getAttributes().get("email");
+            String token = jwtProvider.createToken(email, "CUSTOMER");
+            Accounts account=accountsRepo.findAccountsByGmail(email);
+            String Id=account.getAccountId() .toString();
+            String username=account.getUsername();
+            String provider=account.getProvider().toString();
+            String uri = UriComponentsBuilder.fromUriString(hostname + "/auth/oauth/google")
+                    .queryParam("token", token).queryParam("id",Id).queryParam("username",username).queryParam("userRoles","CUSTOMER").queryParam("provider",provider)
+                    .build().toUriString();
+            getRedirectStrategy().sendRedirect(request, response, uri);
+    	}
+    	catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
+        
     }
 }

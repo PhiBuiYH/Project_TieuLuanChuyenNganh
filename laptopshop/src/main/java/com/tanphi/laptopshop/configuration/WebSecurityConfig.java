@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -38,18 +39,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html","/webjars/**" ,"/swagger.json","/admin/auth/login","/auth/login")
-                .permitAll()
-                    .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                    .antMatchers("/account/**","/auth/**","/cart/**","/category/**","/address/**","/orders/**","/payment/**","view/product/**","/registration/**","/reviews/**","/wishlist/**").hasAnyAuthority("CUSTOMER")
-                .anyRequest().authenticated();
-//                .and()
-//                .oauth2Login()
-//                .authorizationEndpoint().baseUri("/oauth2/authorize")
-//                .and()
-//                .userInfoEndpoint().userService(oAuth2UserService)
-//                .and()
-//                .successHandler(oAuth2SuccessHandler);
+//                .antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html**","/webjars/**" ,"/swagger.json","/admin/auth/login","/auth/login","/registration/**,/**")
+//                .permitAll()
+//                    .antMatchers("/admin/**","/auth/**").hasAnyAuthority("ADMIN")
+//                    .antMatchers("/account/**","/auth/**","/cart/**","/category/**","/address/**","/orders/**","/payment/**","view/product/**","/reviews/**","/wishlist/**").hasAnyAuthority("CUSTOMER")
+//                .anyRequest().authenticated();
+                .antMatchers("/admin/**","/registration/**","/category/**","/**","/swagger-ui.html**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login()
+                .authorizationEndpoint().baseUri("/oauth2/authorize")
+                .and()
+                .userInfoEndpoint().userService(oAuth2UserService)
+                .and()
+                .successHandler(oAuth2SuccessHandler);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
     @Bean

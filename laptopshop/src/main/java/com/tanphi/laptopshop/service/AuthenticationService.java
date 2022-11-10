@@ -8,7 +8,7 @@ import com.tanphi.laptopshop.security.oauth2.OAuth2UserInfo;
 import java.util.Map;
 
 public interface AuthenticationService {
-    Map<String, String> login(String username,Integer role);
+    Map<String, String> login(String username);
 
     void registerUser(RegistrationRequest request);
 

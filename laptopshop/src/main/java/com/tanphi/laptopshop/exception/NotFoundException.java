@@ -1,12 +1,13 @@
 package com.tanphi.laptopshop.exception;
 
-public class DuplicateRecoredException extends RuntimeException{
-    /**
+public class NotFoundException extends RuntimeException {
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	public DuplicateRecoredException(String message) {
+	public NotFoundException(String message) {
         super(message);
     }
+
 }
