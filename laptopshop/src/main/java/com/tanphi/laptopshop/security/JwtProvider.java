@@ -2,6 +2,7 @@ package com.tanphi.laptopshop.security;
 
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -20,9 +21,8 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
-
     @Qualifier("userDetailsServiceImpl") @Lazy
-    private final UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Value("${jwt.header}")
     private String authorizationHeader;

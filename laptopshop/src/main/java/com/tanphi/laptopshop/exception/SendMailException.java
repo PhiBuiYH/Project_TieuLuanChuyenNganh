@@ -1,7 +1,12 @@
 package com.tanphi.laptopshop.exception;
 
 public class SendMailException extends RuntimeException{
-    public SendMailException(String message) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public SendMailException(String message) {
         super(message);
     }
 }

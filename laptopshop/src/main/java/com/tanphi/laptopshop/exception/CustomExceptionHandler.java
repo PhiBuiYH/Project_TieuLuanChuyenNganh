@@ -12,6 +12,12 @@ public class CustomExceptionHandler {
     public ErrorResponse handleReviewMailException(SendMailException ex,WebRequest reg) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
+    
+    @ExceptionHandler(BadRequestException.class)
+    public ErrorResponse handleBadRequestException(BadRequestException ex,WebRequest reg) {
+        return new ErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+    
 
     // Xử lý tất cả các exception chưa được khai báo
     @ExceptionHandler(Exception.class)

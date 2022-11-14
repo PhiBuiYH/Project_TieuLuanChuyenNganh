@@ -2,7 +2,6 @@ package com.tanphi.laptopshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,7 +9,6 @@ import java.util.Set;
 
 @Entity
 @Table(name="orders")
-@Data
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,16 +16,95 @@ public class Orders {
     @Column(columnDefinition = "Date")
     private Timestamp orderDate;
     @Column(columnDefinition = "Date")
-    private Timestamp receptDate;
-    private String totalAmount;
+    private Timestamp receiptDate;
+    private Integer totalAmount;
     private String shipping;
     private String customerNote;
-    private String status;
+    private Integer status;
+    
+    public Integer getOrderId() {
+		return orderId;
+	}
 
-    @ManyToOne
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public Timestamp getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Timestamp orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public Timestamp getReceiptDate() {
+		return receiptDate;
+	}
+
+	public void setReceiptDate(Timestamp receiptDate) {
+		this.receiptDate = receiptDate;
+	}
+
+	public Integer getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(Integer totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	public String getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(String shipping) {
+		this.shipping = shipping;
+	}
+
+	public String getCustomerNote() {
+		return customerNote;
+	}
+
+	public void setCustomerNote(String customerNote) {
+		this.customerNote = customerNote;
+	}
+
+	public Set<OrderDetail> getOrderDetailSet() {
+		return orderDetailSet;
+	}
+
+	public void setOrderDetailSet(Set<OrderDetail> orderDetailSet) {
+		this.orderDetailSet = orderDetailSet;
+	}
+
+	public Set<Reviews> getReviewsSet() {
+		return reviewsSet;
+	}
+
+	public void setReviewsSet(Set<Reviews> reviewsSet) {
+		this.reviewsSet = reviewsSet;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	public Accounts getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Accounts accounts) {
+		this.accounts = accounts;
+	}
+
+	@ManyToOne
     @JoinColumn (name = "accountId", nullable = false,referencedColumnName = "accountId")
     @JsonBackReference
-    private Accounts account;
+    private Accounts accounts;
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -36,4 +113,8 @@ public class Orders {
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
     @JsonManagedReference
     private Set<Reviews> reviewsSet;
+
+	
+    
+    
 }
