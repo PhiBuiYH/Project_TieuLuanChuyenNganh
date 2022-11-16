@@ -17,15 +17,15 @@ insert into news(account_id,title,content,image_link,created,isdeleted) values (
 
 
 -- insert supplier
-insert into supplier (supplier_name,supplier_image,isdeleted)
+insert into supplier (supplier_name,image_link,isdeleted)
 values ('HP','',0);
-insert into supplier (supplier_name,supplier_image,isdeleted)
+insert into supplier (supplier_name,image_link,isdeleted)
 values ('DELL','',0);
-insert into supplier (supplier_name,supplier_image,isdeleted)
+insert into supplier (supplier_name,image_link,isdeleted)
 values ('ASUS','',0);
-insert into supplier (supplier_name,supplier_image,isdeleted)
+insert into supplier (supplier_name,image_link,isdeleted)
 values ('ACER','',0);
-insert into supplier (supplier_name,supplier_image,isdeleted)
+insert into supplier (supplier_name,image_link,isdeleted)
 values ('MSI','',0);
 
 -- insert product
@@ -61,14 +61,14 @@ insert into product (product_name,supplier_id,quantity,image,unitprice,discount,
 values ('Laptop MSI Gaming GL75 Leopard 10SCSK 056VN', 5, 5, '', 23000000, '', 'Thiết kế nhỏ gọn, màn hình đến 17.3 inches</br>Cấu hình mạnh mẽ với Core i5-10200H, 8GB RAM, 512GB SSD, VGA GTX 1650 Ti', '', '', '', '', '', '', '', '', '', '', '',0);
 
 -- insert orders-orderdetail
-insert into orders(account_id,order_date, receipt_date,totalAmount,shipping,address,customer_note,status)
+insert into orders(account_id,order_date, receipt_date,total_amount,shipping,address,customer_note,status)
 values (1,'2021-10-5','2021-10-10','38000000','','Đồng Nai','Đúng hàng giúp mình^_^',4);
 insert into orderdetail(order_id,product_id,quantity)
 values (1,5,1);
 insert into orderdetail(order_id,product_id,quantity)
 values (1,6,1);
 
-insert into orders(account_id,order_date, receipt_date,totalAmount,shipping,address,customer_note,status)
+insert into orders(account_id,order_date, receipt_date,total_amount,shipping,address,customer_note,status)
 values (2,'2021-11-15','2021-11-18','41000000','','Quảng Ngãi','Lấy màu đen nha shop',4);
 insert into orderdetail(order_id,product_id,quantity)
 values (2,7,1);

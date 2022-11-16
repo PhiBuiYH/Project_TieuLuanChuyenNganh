@@ -43,8 +43,15 @@ public class AuthenticationServiceimpl implements AuthenticationService {
 		Accounts account = accountsRepo.findAccountsByUsername(username);
 		String id = account.getAccountId().toString();
 //        String imageLink=account;
-
-		String userRole = account.getRoles().toString();
+		String userRole;
+		if(account.getRoles()==Roles.ADMIN.getCode())
+		{
+			userRole = Roles.ADMIN.toString();
+		}
+		else {
+			userRole = Roles.CUSTOMER.toString();
+		}
+		
 		String token = jwtProvider.createToken(username, userRole);
 
 		Map<String, String> response = new HashMap<>();

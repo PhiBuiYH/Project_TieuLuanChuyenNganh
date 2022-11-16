@@ -35,7 +35,7 @@ CREATE TABLE supplier
 (
     supplier_id int primary key auto_increment,
     supplier_name varchar(50) charset utf8mb4 not null,
-    supplier_image VARCHAR(500),
+    image_link VARCHAR(500),
     isdeleted int
 );
 
@@ -81,7 +81,7 @@ CREATE TABLE orders
     account_id int not null,
     order_date date not null,
     receipt_date date,
-    totalAmount int,
+    total_amount int,
     shipping varchar(50) charset utf8mb4,
     address varchar(50) charset utf8mb4 not null,
     customer_note varchar(50) charset utf8mb4,
