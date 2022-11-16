@@ -1,8 +1,6 @@
 package com.tanphi.laptopshop.security.oauth2;
 
 import com.tanphi.laptopshop.entity.Accounts;
-import com.tanphi.laptopshop.entity.enums.ActiveAccountStatus;
-import com.tanphi.laptopshop.entity.enums.IsDeleteStatus;
 import com.tanphi.laptopshop.repository.AccountsRepo;
 import com.tanphi.laptopshop.security.JwtProvider;
 import lombok.RequiredArgsConstructor;

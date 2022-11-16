@@ -3,6 +3,7 @@ package com.tanphi.laptopshop.security;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
@@ -21,6 +22,7 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class JwtProvider {
+	@Autowired
     @Qualifier("userDetailsServiceImpl") @Lazy
     private UserDetailsService userDetailsService;
 

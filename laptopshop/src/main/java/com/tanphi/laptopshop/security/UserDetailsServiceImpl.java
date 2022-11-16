@@ -1,6 +1,7 @@
 package com.tanphi.laptopshop.security;
 
 import com.tanphi.laptopshop.entity.Accounts;
+import com.tanphi.laptopshop.entity.enums.ActiveAccountStatus;
 import com.tanphi.laptopshop.entity.enums.IsDeleteStatus;
 import com.tanphi.laptopshop.exception.DuplicateRecoredException;
 import com.tanphi.laptopshop.repository.AccountsRepo;
@@ -20,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws DuplicateRecoredException {
-        Accounts accounts=accountsRepo.findAccountsByGmailAndActiveAccount(username, IsDeleteStatus.NO.getCode());
+        Accounts accounts=accountsRepo.findAccountsByGmailAndActiveAccount(username, ActiveAccountStatus.ACTIVE.getCode());
         if (accounts == null) {
             throw new UsernameNotFoundException("User not found");
         }

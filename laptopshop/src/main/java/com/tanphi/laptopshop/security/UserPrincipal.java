@@ -1,6 +1,8 @@
 package com.tanphi.laptopshop.security;
 
 import com.tanphi.laptopshop.entity.Accounts;
+import com.tanphi.laptopshop.entity.enums.Roles;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +27,14 @@ public class UserPrincipal implements UserDetails {
 	}
 
 	public static UserPrincipal create(Accounts account) {
-        String userRole=account.getRoles().toString();
+		String userRole;
+		if(account.getRoles()==Roles.ADMIN.getCode())
+		{
+			userRole = Roles.ADMIN.toString();
+		}
+		else {
+			userRole = Roles.CUSTOMER.toString();
+		}
         List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(userRole));
         return new UserPrincipal(account.getAccountId(), account.getGmail(), account.getPasswords(), authorities);
     }

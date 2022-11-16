@@ -55,11 +55,11 @@ public class CustomAuthenticationProviderService implements AuthenticationProvid
     private Collection<GrantedAuthority> getGrantedAuthority(Accounts account) {
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         if(account.getRoles()==Roles.CUSTOMER.getCode()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority("CUSTOMER"));
+            grantedAuthorities.add(new SimpleGrantedAuthority(Roles.CUSTOMER.toString()));
         }
         else if(account.getRoles()==Roles.ADMIN.getCode())
         {
-        	grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+        	grantedAuthorities.add(new SimpleGrantedAuthority(Roles.ADMIN.toString()));
         }
         return grantedAuthorities;
     }
