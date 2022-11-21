@@ -11,7 +11,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
-
     private String productName;
     private Integer quantity;
     private String image;
