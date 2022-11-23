@@ -48,7 +48,9 @@ public class CartController {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_ACCEPTABLE);
         }
         cartService.addToCart(cartRequest);
-        return ResponseEntity.ok("Thêm giỏ hàng thành công");
+        ApiResponse apiResponse=new ApiResponse();
+        apiResponse.setMessage("Thêm giỏ hàng thành công");
+        return ResponseEntity.ok(apiResponse);
     }
     @PutMapping("/update")
     public ResponseEntity<?> updateCart(@Valid @RequestBody CartRequest cartRequest, BindingResult bindingResult)
@@ -58,7 +60,9 @@ public class CartController {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_ACCEPTABLE);
         }
         cartService.updateCart(cartRequest);
-        return ResponseEntity.ok("Cập nhật giỏ hàng thành công");
+        ApiResponse apiResponse=new ApiResponse();
+        apiResponse.setMessage("Cập nhật giỏ hàng thành công");
+        return ResponseEntity.ok(apiResponse);
     }
     @PutMapping("/delete")
     public ResponseEntity<?> deleteCart(@Valid @RequestBody CartRequest cartRequest, BindingResult bindingResult)
@@ -68,6 +72,8 @@ public class CartController {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_ACCEPTABLE);
         }
         cartService.deleteCart(cartRequest);
-        return new ResponseEntity<>("Xóa giỏ hàng thành công",HttpStatus.OK);
+        ApiResponse apiResponse=new ApiResponse();
+        apiResponse.setMessage("Xóa giỏ hàng thành công");
+        return ResponseEntity.ok(apiResponse);
     }
 }

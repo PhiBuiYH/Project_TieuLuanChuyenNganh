@@ -76,7 +76,7 @@ public class AuthenticationServiceimpl implements AuthenticationService {
 		accountRegister.setPasswords(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt(12)));
 		accountRegister.setGmail(request.getGmail());
 		accountRegister.setActivationCode(UUID.randomUUID().toString());
-		accountRegister.setActiveAccount(ActiveAccountStatus.ACTIVE.getCode());
+		accountRegister.setActiveAccount(ActiveAccountStatus.NO_ACTIVE.getCode());
 		accountRegister.setProvider(AuthProvider.LOCAL.getCode());
 		accountRegister.setRoles(Roles.CUSTOMER.getCode());
 		accountRegister.setPasswordresetCode(null);
@@ -91,6 +91,7 @@ public class AuthenticationServiceimpl implements AuthenticationService {
 			String template = "registration-template";
 			Map<String, Object> attributes = new HashMap<>();
 			attributes.put("fullname", request.getFirstname() + " " + request.getLastname());
+			attributes.put("activationCode", accountRegister.getActivationCode());
 			attributes.put("registrationUrl",
 					"http://localhost:8080" + "/registration/activate/" + accountRegister.getActivationCode());
 			mailSender.sendMessageHtml(request.getGmail(), subject, template, attributes);
@@ -127,6 +128,7 @@ public class AuthenticationServiceimpl implements AuthenticationService {
 		String template = "password-reset-template";
 		Map<String, Object> attributes = new HashMap<>();
 		attributes.put("fullname", account.getFirstname() + " " + account.getLastname());
+		attributes.put("passwordResetCode", account.getPasswordresetCode());
 		attributes.put("resetUrl", "http://localhost:8080/auth" + "/reset/" + account.getPasswordresetCode());
 		try {
 			mailSender.sendMessageHtml(account.getGmail(), subject, template, attributes);

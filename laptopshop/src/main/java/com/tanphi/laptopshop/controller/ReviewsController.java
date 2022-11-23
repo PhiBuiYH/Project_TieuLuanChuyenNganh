@@ -29,7 +29,9 @@ public class ReviewsController {
 			return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_ACCEPTABLE);
 		}
 		reviewsService.createReviews(request);
-		return ResponseEntity.ok("Viết phản hồi thành công");
+		ApiResponse apiResponse=new ApiResponse();
+		apiResponse.setMessage("Viết phản hồi thành công");
+		return ResponseEntity.ok(apiResponse);
 	}
 		
 }

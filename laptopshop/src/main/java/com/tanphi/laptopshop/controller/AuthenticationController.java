@@ -32,7 +32,9 @@ public class AuthenticationController {
     public ResponseEntity<?> loginGoogle(@RequestParam("id") String id,@RequestParam("provider") String provider) {
         if(AuthProvider.LOCAL.getCode().toString().equals(provider) )
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tài khoản đã tồn tại");
-        return ResponseEntity.ok("Đăng nhập thành công");
+        ApiResponse apiResponse=new ApiResponse();
+        apiResponse.setMessage("Đăng nhập thành công");
+        return ResponseEntity.ok(apiResponse);
     }
 
     @PostMapping("/login")
@@ -49,12 +51,14 @@ public class AuthenticationController {
         }
     }
     @PostMapping("/forgot")
-    public ResponseEntity<String> forgotPassword(@RequestBody PasswordResetRequest passwordReset) {
+    public ResponseEntity<Object> forgotPassword(@RequestBody PasswordResetRequest passwordReset) {
         boolean forgotPassword = authenticationMapper.sendPasswordResetCode(passwordReset.getEmail());
         if (!forgotPassword) {
             throw new NotFoundException("Không tìm được Email");
         }
-        return ResponseEntity.ok("Mã đặt lại mật mật khẩu đã được gửi về Email của bạn");
+        ApiResponse apiResponse=new ApiResponse();
+        apiResponse.setMessage("Mã đặt lại mật mật khẩu đã được gửi về Email của bạn");
+        return ResponseEntity.ok(apiResponse);
     }
 
     @GetMapping("/reset/{code}")
@@ -63,7 +67,9 @@ public class AuthenticationController {
         if (accounts == null) {
             throw new NotFoundException("Mã đặt lại mật khẩu không hợp lệ");
         }
-        return ResponseEntity.ok("Mã đặt lại ăn khớp");
+        ApiResponse apiResponse=new ApiResponse();
+        apiResponse.setMessage("Mã đặt lại ăn khớp");
+        return ResponseEntity.ok(apiResponse);
     }
 
     @PostMapping("/reset")
