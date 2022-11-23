@@ -11,7 +11,7 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer supplierId;
-    private Integer supplierName;
+    private String supplierName;
     private String imageLink;
     private Integer isdeleted;
 
@@ -23,13 +23,14 @@ public class Supplier {
 		this.supplierId = supplierId;
 	}
 
-	public Integer getSupplierName() {
+	public String getSupplierName() {
 		return supplierName;
 	}
 
-	public void setSupplierName(Integer supplierName) {
+	public void setSupplierName(String supplierName) {
 		this.supplierName = supplierName;
 	}
+
 	public String getImageLink() {
 		return imageLink;
 	}

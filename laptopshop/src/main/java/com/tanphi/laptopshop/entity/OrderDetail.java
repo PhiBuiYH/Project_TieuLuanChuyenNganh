@@ -10,6 +10,15 @@ public class OrderDetail {
     @EmbeddedId
     private OrderDetailIDKey orderDetailIDKey;
     private Integer quantity;
+    
+
+	public OrderDetailIDKey getOrderDetailIDKey() {
+		return orderDetailIDKey;
+	}
+
+	public void setOrderDetailIDKey(OrderDetailIDKey orderDetailIDKey) {
+		this.orderDetailIDKey = orderDetailIDKey;
+	}
 
 	public Integer getQuantity() {
 		return quantity;
