@@ -44,7 +44,9 @@ public class OrdersController {
 			return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.NOT_ACCEPTABLE);
 		}
 		ordersService.createOrders(orderCreateRequest);
-		return ResponseEntity.ok("Tạo đơn hàng thành công");
+		ApiResponse apiResponse=new ApiResponse();
+		apiResponse.setMessage("Tạo đơn hàng thành công");
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 	@GetMapping("/{customerID}")
@@ -78,7 +80,9 @@ public class OrdersController {
 	@PutMapping("/cancel/{customerID}")
 	public ResponseEntity<?> cancleOrders(@PathVariable Integer ordersID) {
 		ordersService.cancleOrders(ordersID);
-		return ResponseEntity.ok("Hủy đơn hàng thành công");
+		ApiResponse apiResponse=new ApiResponse();
+		apiResponse.setMessage("Hủy đơn hàng thành công");
+		return ResponseEntity.ok(apiResponse);
 	}
 	
 }

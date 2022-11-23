@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.tanphi.laptopshop.exception.BadRequestException;
-import com.tanphi.laptopshop.exception.NotFoundException;
 import com.tanphi.laptopshop.request.register.RegistrationRequest;
 import com.tanphi.laptopshop.service.AuthenticationMapper;
 
@@ -30,14 +29,18 @@ public class RegistrationController {
             return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.NOT_ACCEPTABLE);
         }
         authenticationMapper.registerUser(request);
-        return ResponseEntity.ok("Vui lòng kiểm tra email để hoàn tất quá trình đăng kí.");
+        ApiResponse apiResponse=new ApiResponse();
+    	apiResponse.setMessage("Vui lòng kiểm tra email để hoàn tất quá trình đăng kí.");
+        return ResponseEntity.ok(apiResponse);
     }
     @GetMapping("/activate/{code}")
-    public ResponseEntity<String> activateEmailCode(@PathVariable String code) {
+    public ResponseEntity<Object> activateEmailCode(@PathVariable String code) {
         if (!authenticationMapper.activateUser(code)) {
-            throw new NotFoundException("Mã code không hợp lệ");
+            throw new BadRequestException("Mã code không hợp lệ");
         } else {
-            return ResponseEntity.ok("Tài khoản của bạn đã kích hoạt thành công.");
+        	ApiResponse apiResponse=new ApiResponse();
+        	apiResponse.setMessage("Tài khoản của bạn đã kích hoạt thành công.");
+            return ResponseEntity.ok(apiResponse);
         }
     }
 }
