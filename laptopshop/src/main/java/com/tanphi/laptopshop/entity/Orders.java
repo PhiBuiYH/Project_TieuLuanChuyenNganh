@@ -18,11 +18,21 @@ public class Orders {
     @Column(columnDefinition = "Date")
     private Timestamp receiptDate;
     private Integer totalAmount;
-    private String shipping;
+    private Integer shipping;
     private String customerNote;
     private Integer status;
+    private String address;
     
-    public Integer getOrderId() {
+        
+    public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Integer getOrderId() {
 		return orderId;
 	}
 
@@ -54,11 +64,12 @@ public class Orders {
 		this.totalAmount = totalAmount;
 	}
 
-	public String getShipping() {
+
+	public Integer getShipping() {
 		return shipping;
 	}
 
-	public void setShipping(String shipping) {
+	public void setShipping(Integer shipping) {
 		this.shipping = shipping;
 	}
 

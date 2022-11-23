@@ -62,14 +62,14 @@ values ('Laptop MSI Gaming GL75 Leopard 10SCSK 056VN', 5, 5, '', 23000000, '', '
 
 -- insert orders-orderdetail
 insert into orders(account_id,order_date, receipt_date,total_amount,shipping,address,customer_note,status)
-values (1,'2021-10-5','2021-10-10','38000000','','Đồng Nai','Đúng hàng giúp mình^_^',4);
+values (1,'2021-10-5','2021-10-10','38000000',0,'Đồng Nai','Đúng hàng giúp mình^_^',4);
 insert into orderdetail(order_id,product_id,quantity)
 values (1,5,1);
 insert into orderdetail(order_id,product_id,quantity)
 values (1,6,1);
 
 insert into orders(account_id,order_date, receipt_date,total_amount,shipping,address,customer_note,status)
-values (2,'2021-11-15','2021-11-18','41000000','','Quảng Ngãi','Lấy màu đen nha shop',4);
+values (2,'2021-11-15','2021-11-18','41000000',0,'Quảng Ngãi','Lấy màu đen nha shop',4);
 insert into orderdetail(order_id,product_id,quantity)
 values (2,7,1);
 insert into orderdetail(order_id,product_id,quantity)

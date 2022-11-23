@@ -1,4 +1,6 @@
-package com.tanphi.laptopshop.respone.product;
+package com.tanphi.laptopshop.response.product;
+
+import com.tanphi.laptopshop.response.reviews.GetListReviewsResponse;
 
 import lombok.Data;
 
@@ -22,4 +24,5 @@ public class GetProductResponse {
     private String graphicCardMemory;
     private String batteryCapacity;
     private String osSupplied;
+    private GetListReviewsResponse reviewsResponses;
 }

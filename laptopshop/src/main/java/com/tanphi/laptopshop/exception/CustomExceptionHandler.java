@@ -25,6 +25,6 @@ public class CustomExceptionHandler {
     public ErrorResponse handlerException(Exception ex, WebRequest req) {
         // Log err
 
-        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+        return new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.toString());
     }
 }

@@ -42,7 +42,7 @@ CREATE TABLE supplier
 CREATE TABLE product
 (
     product_id int primary key auto_increment,
-    product_name  varchar(50) charset utf8mb4 not null,
+    product_name  nvarchar(50) not null,
     supplier_id int not null,
     quantity int not null,
     image varchar(500),
@@ -82,7 +82,7 @@ CREATE TABLE orders
     order_date date not null,
     receipt_date date,
     total_amount int,
-    shipping varchar(50) charset utf8mb4,
+    shipping int,
     address varchar(50) charset utf8mb4 not null,
     customer_note varchar(50) charset utf8mb4,
     status int,
@@ -103,7 +103,7 @@ CREATE TABLE reviews(
 	product_id int,
 	account_id int,
 	contents varchar(500) charset utf8mb4,
-	rate varchar(1),
+	rate varchar(10),
     reviews_date date,
     isdeleted int,
 	CONSTRAINT REVIEWS_PK PRIMARY KEY(order_id, product_id, account_id),
