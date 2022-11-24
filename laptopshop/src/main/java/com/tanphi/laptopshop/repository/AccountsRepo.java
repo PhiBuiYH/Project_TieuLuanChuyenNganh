@@ -12,5 +12,6 @@ public interface AccountsRepo extends JpaRepository<Accounts,Integer> {
     Accounts findAccountsByPasswordresetCode(String code);
     Accounts findAccountsByUsernameAndRoles(String username,Integer roles);
     Accounts findAccountsByUsername(String username);
+    Accounts findAccountsByUsernameAndActiveAccount(String username,Integer status);
     Accounts findAccountsByAccountId(Integer accountId);
 }

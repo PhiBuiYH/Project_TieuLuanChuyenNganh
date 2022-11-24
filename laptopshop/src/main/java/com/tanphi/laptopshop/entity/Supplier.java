@@ -1,5 +1,7 @@
 package com.tanphi.laptopshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ public class Supplier {
     private Integer supplierId;
     private String supplierName;
     private String imageLink;
+    @JsonIgnore
     private Integer isdeleted;
 
     public Integer getSupplierId() {
@@ -59,5 +62,7 @@ public class Supplier {
 
 	@OneToMany(mappedBy = "supplier",cascade = CascadeType.ALL)
     @JsonManagedReference
+    @Transient
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Set<Product> productSet;
 }
