@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws DuplicateRecoredException {
-        Accounts accounts=accountsRepo.findAccountsByGmailAndActiveAccount(username, ActiveAccountStatus.ACTIVE.getCode());
+        Accounts accounts=accountsRepo.findAccountsByUsernameAndActiveAccount(username, ActiveAccountStatus.ACTIVE.getCode());
         if (accounts == null) {
             throw new UsernameNotFoundException("User not found");
         }
