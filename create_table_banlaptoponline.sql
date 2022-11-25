@@ -49,17 +49,6 @@ CREATE TABLE product
     unitprice INT not null,
     discount varchar(10),
     description varchar(500) charset utf8mb4,
-    cpu varchar(50),
-    ram varchar(50),
-    weight varchar(50),
-    hard_disk_capacity varchar(50),
-    hard_disk_type varchar(50),
-    screen_size varchar(50),
-    screen_resolution varchar(50),
-    graphic_card_name varchar(50),
-    graphic_card_memory varchar(50),
-    battery_capacity varchar(50),
-    os_supplied varchar(50),
     isdeleted int,
     CONSTRAINT PRO_SUPPLIER_ID_FK FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id) ON DELETE CASCADE
 );
