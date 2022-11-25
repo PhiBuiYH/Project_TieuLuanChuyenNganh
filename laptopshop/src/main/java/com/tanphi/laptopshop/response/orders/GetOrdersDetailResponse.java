@@ -6,5 +6,7 @@ import lombok.Data;
 public class GetOrdersDetailResponse {
 	private Integer orderId;
 	private Integer productId;
+	private String productName;
+	private String imgLink;
 	private Integer quantity;
 }

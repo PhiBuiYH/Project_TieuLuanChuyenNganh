@@ -54,23 +54,23 @@ public class OrdersController {
 		String strStatus="";
 		if(OrderStatus.APPROVED.getCode()==status)
 		{
-			strStatus=OrderStatus.APPROVED.toString();
+			strStatus=OrderStatus.APPROVED.getMessage();
 		}
 		else if(OrderStatus.CANCELED.getCode()==status)
 		{
-			strStatus=OrderStatus.CANCELED.toString();
+			strStatus=OrderStatus.CANCELED.getMessage();
 		}
 		else if(OrderStatus.DELIVERD.getCode()==status)
 		{
-			strStatus=OrderStatus.DELIVERD.toString();
+			strStatus=OrderStatus.DELIVERD.getMessage();
 		}
 		else if(OrderStatus.DELIVERING.getCode()==status)
 		{
-			strStatus=OrderStatus.DELIVERING.toString();
+			strStatus=OrderStatus.DELIVERING.getMessage();
 		}
 		else
 		{
-			strStatus=OrderStatus.WAITING_FOR_APPROVAL.toString();
+			strStatus=OrderStatus.WAITING_FOR_APPROVAL.getMessage();
 			status=OrderStatus.WAITING_FOR_APPROVAL.getCode();
 		}
 		List<Orders> listOrders= ordersService.getOrdersByStatus(customerID,status);

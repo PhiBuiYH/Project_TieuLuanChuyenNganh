@@ -21,6 +21,8 @@ import java.time.Instant;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -99,5 +101,27 @@ public class OrdersServiceImpl implements OrdersService {
 		List<Orders> lstOrders=ordersRepo.findOrdersByStatusAndAccounts(status, accounts);
 		return lstOrders;
 	}
-	
+
+
+
+	@Override
+	public Page<Orders> GetListOrdersByStatus(Integer status, Pageable pageable) {
+		// TODO Auto-generated method stub
+		Page<Orders> pageOrders=ordersRepo.findOrdersByStatusOrderByReceiptDateDesc(status,pageable);
+		return pageOrders;
+	}
+
+
+
+	@Override
+	public void UpdateOrderStatus(Integer ordersID, Integer orderStatus) {
+		// TODO Auto-generated method stub
+		Orders orders=ordersRepo.findOrdersByOrderId(ordersID);
+		if(orders==null)
+		{
+			throw new BadRequestException("Đơn hàng không tồn tại");
+		}
+		orders.setStatus(orderStatus);
+		ordersRepo.save(orders);
+	}	
 }

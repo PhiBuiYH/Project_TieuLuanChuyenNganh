@@ -20,6 +20,8 @@ public class OrdersDetailMapper {
 		GetOrdersDetailResponse tmp=new GetOrdersDetailResponse();
 		tmp.setOrderId(orderDetail.getOrderDetailIDKey().getOrderId());
 		tmp.setProductId(orderDetail.getOrderDetailIDKey().getProductId());
+		tmp.setImgLink(orderDetail.getProduct().getImage());
+		tmp.setProductName(orderDetail.getProduct().getProductName());;
 		tmp.setQuantity(orderDetail.getQuantity());
 		return tmp;
 	}

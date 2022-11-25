@@ -1,8 +1,5 @@
 package com.tanphi.laptopshop.mapper;
-
-import com.tanphi.laptopshop.entity.OrderDetail;
 import com.tanphi.laptopshop.entity.Orders;
-import com.tanphi.laptopshop.entity.Product;
 import com.tanphi.laptopshop.response.orders.GetListOrdersByStatus;
 import com.tanphi.laptopshop.response.orders.GetOrdersByStatus;
 import com.tanphi.laptopshop.response.orders.GetOrdersDetailResponse;

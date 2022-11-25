@@ -3,6 +3,7 @@ package com.tanphi.laptopshop.security;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -24,9 +25,9 @@ public class JwtFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String token = jwtProvider.resolveToken((HttpServletRequest) servletRequest);
-
+        String token = null;
         try {
+        	token = jwtProvider.resolveToken((HttpServletRequest) servletRequest);
             if (token != null && jwtProvider.validateToken(token)) {
                 Authentication authentication = jwtProvider.getAuthentication(token);
 
@@ -37,8 +38,12 @@ public class JwtFilter extends GenericFilterBean {
         } catch (JwtAuthenticationException e) {
             SecurityContextHolder.clearContext();
             ((HttpServletResponse) servletResponse).sendError(e.getHttpStatus().value());
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            throw new JwtAuthenticationException("JWT token is expired or invalid",HttpStatus.UNAUTHORIZED);
         }
+        catch (Exception e) {
+			// TODO: handle exception
+        	e.printStackTrace();
+		}
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }
