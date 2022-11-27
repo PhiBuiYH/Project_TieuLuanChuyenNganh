@@ -98,7 +98,7 @@ public class OrdersServiceImpl implements OrdersService {
 	public List<Orders> getOrdersByStatus(Integer customerID, Integer status) {
 		// TODO Auto-generated method stub
 		Accounts accounts=accountsRepo.findAccountsByAccountId(customerID);
-		List<Orders> lstOrders=ordersRepo.findOrdersByStatusAndAccounts(status, accounts);
+		List<Orders> lstOrders=ordersRepo.findOrdersByStatusAndAccountsOrderByOrderDateDesc(status, accounts);
 		return lstOrders;
 	}
 
@@ -107,7 +107,7 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public Page<Orders> GetListOrdersByStatus(Integer status, Pageable pageable) {
 		// TODO Auto-generated method stub
-		Page<Orders> pageOrders=ordersRepo.findOrdersByStatusOrderByReceiptDateDesc(status,pageable);
+		Page<Orders> pageOrders=ordersRepo.findOrdersByStatusOrderByOrderDateDesc(status,pageable);
 		return pageOrders;
 	}
 
@@ -123,5 +123,27 @@ public class OrdersServiceImpl implements OrdersService {
 		}
 		orders.setStatus(orderStatus);
 		ordersRepo.save(orders);
+	}
+
+
+
+	@Override
+	public Page<Orders> GetAllOrdersPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		Page<Orders> pageOrders=ordersRepo.findAllByOrderByOrderDate(pageable);
+		return pageOrders;
+	}
+
+
+
+	@Override
+	public Orders GetOrdersById(int id) {
+		// TODO Auto-generated method stub
+		Orders orders=ordersRepo.findOrdersByOrderId(id);
+		if(orders==null)
+		{
+			throw new BadRequestException("Đơn hàng "+id+" không tồn tại");
+		}
+		return orders;
 	}	
 }

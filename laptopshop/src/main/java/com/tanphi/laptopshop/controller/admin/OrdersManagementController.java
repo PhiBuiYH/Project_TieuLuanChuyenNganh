@@ -31,27 +31,60 @@ public class OrdersManagementController {
 	@Autowired
 	private OrdersService ordersService;
 
+	@GetMapping("/all")
+	public ResponseEntity<?> GetAllOrdersPage(@RequestParam(value = "page", required = false) Optional<Integer> page,
+			@RequestParam(value = "size", required = false) Optional<Integer> size) {
+		String strStatus="";
+		Integer status=0;
+		int pageSize = 10;
+		if (size.isPresent()) {
+			pageSize = size.get();
+		}
+		int pageNumber = 1;
+		if (page.isPresent()) {
+			pageNumber = page.get();
+			page = Optional.of(pageNumber - 1);
+
+		} else {
+			page = Optional.of(0);
+		}
+		Pageable pageable = PageRequest.of(page.get(), pageSize);
+		Page<Orders> pageOrders = ordersService.GetAllOrdersPage(pageable);
+		if (pageOrders.isEmpty()) {
+			throw new BadRequestException("Không có đơn hàng nào");
+		}
+		return ResponseEntity
+				.ok(OrdersMapper.toResponseGetListOrdersByStatus(pageOrders.getContent(), strStatus, status));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> GetOrdersById(@PathVariable int id) {
+		Orders order= ordersService.GetOrdersById(id);
+		if (order==null) {
+			throw new BadRequestException("Không có đơn hàng có id: "+id);
+		}
+		return ResponseEntity
+				.ok(OrdersMapper.toResponseGetOrdersByStatus(order));
+	}
+
 	@GetMapping("")
 	public ResponseEntity<?> GetListOrdersByStatus(@RequestParam("status") Integer status,
 			@RequestParam(value = "page", required = false) Optional<Integer> page,
 			@RequestParam(value = "size", required = false) Optional<Integer> size) {
-		int pageSize=10;
-    	if(size.isPresent())
-        {
-    		pageSize= size.get();
-        }
-    	int pageNumber=1;
-    	if(page.isPresent())
-        {
-            pageNumber= page.get();
-            page=Optional.of(pageNumber-1);
+		int pageSize = 10;
+		if (size.isPresent()) {
+			pageSize = size.get();
+		}
+		int pageNumber = 1;
+		if (page.isPresent()) {
+			pageNumber = page.get();
+			page = Optional.of(pageNumber - 1);
 
-        }
-        else{
-            page=Optional.of(0);
-        }
-    	Pageable pageable= PageRequest.of(page.get(),pageSize);
-		Page<Orders> pageOrders = ordersService.GetListOrdersByStatus(status,pageable);
+		} else {
+			page = Optional.of(0);
+		}
+		Pageable pageable = PageRequest.of(page.get(), pageSize);
+		Page<Orders> pageOrders = ordersService.GetListOrdersByStatus(status, pageable);
 		String strStatus = "";
 		if (OrderStatus.APPROVED.getCode() == status) {
 			strStatus = OrderStatus.APPROVED.getMessage();
@@ -68,12 +101,15 @@ public class OrdersManagementController {
 		if (pageOrders.isEmpty()) {
 			throw new BadRequestException("Không có đơn hàng nào có trạng thái " + strStatus);
 		}
-		return ResponseEntity.ok(OrdersMapper.toResponseGetListOrdersByStatus(pageOrders.getContent(), strStatus, status));
+		return ResponseEntity
+				.ok(OrdersMapper.toResponseGetListOrdersByStatus(pageOrders.getContent(), strStatus, status));
 	}
+
 	@PutMapping("/update/{orderId}")
-	public ResponseEntity<?> UpdateOrderStatus(@PathVariable Integer ordersID,@RequestBody UpdateOrdersStatusRequest request) {
-		ordersService.UpdateOrderStatus(ordersID,request.getOrderStatus());
-		Integer status=request.getOrderStatus();
+	public ResponseEntity<?> UpdateOrderStatus(@PathVariable Integer orderId,
+			@RequestBody UpdateOrdersStatusRequest request) {
+		ordersService.UpdateOrderStatus(orderId, request.getOrderStatus());
+		Integer status = request.getOrderStatus();
 		String strStatus = "";
 		if (OrderStatus.APPROVED.getCode() == status) {
 			strStatus = OrderStatus.APPROVED.getMessage();
@@ -87,8 +123,8 @@ public class OrdersManagementController {
 			strStatus = OrderStatus.WAITING_FOR_APPROVAL.getMessage();
 			status = OrderStatus.WAITING_FOR_APPROVAL.getCode();
 		}
-		ApiResponse apiResponse=new ApiResponse();
-		apiResponse.setMessage("Thay đổi đơn hàng có id: "+ordersID+" thành "+strStatus);
+		ApiResponse apiResponse = new ApiResponse();
+		apiResponse.setMessage("Thay đổi đơn hàng có id: " + orderId + " thành " + strStatus);
 		return ResponseEntity.ok(apiResponse);
 	}
 }

@@ -1,6 +1,7 @@
 package com.tanphi.laptopshop.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tanphi.laptopshop.entity.Orders;
 import com.tanphi.laptopshop.entity.enums.OrderStatus;
+import com.tanphi.laptopshop.exception.BadRequestException;
 import com.tanphi.laptopshop.mapper.OrdersMapper;
 import com.tanphi.laptopshop.request.orders.OrderCreateRequest;
 import com.tanphi.laptopshop.service.OrdersService;
@@ -30,6 +32,17 @@ import com.tanphi.laptopshop.service.OrdersService;
 public class OrdersController {
 	@Autowired
 	private OrdersService ordersService;
+	
+	
+	@GetMapping("/customer/{id}")
+	public ResponseEntity<?> GetOrdersById(@PathVariable int id) {
+		Orders order= ordersService.GetOrdersById(id);
+		if (order==null) {
+			throw new BadRequestException("Không có đơn hàng có id: "+id);
+		}
+		return ResponseEntity
+				.ok(OrdersMapper.toResponseGetOrdersByStatus(order));
+	}
 
 	@PostMapping("")
 	public ResponseEntity<?> createOrders(@Valid @RequestBody OrderCreateRequest orderCreateRequest,
@@ -44,7 +57,11 @@ public class OrdersController {
 	}
 	
 	@GetMapping("/{customerID}")
-	public ResponseEntity<?> getListOrdersByStatus(@PathVariable Integer customerID,@RequestParam("status") Integer status) {
+	public ResponseEntity<?> getListOrdersByStatus(@PathVariable Integer customerID,@RequestParam(value = "status", required = false) Integer status) {
+		if(status==null)
+		{
+			status=1;
+		}
 		String strStatus="";
 		if(OrderStatus.APPROVED.getCode()==status)
 		{

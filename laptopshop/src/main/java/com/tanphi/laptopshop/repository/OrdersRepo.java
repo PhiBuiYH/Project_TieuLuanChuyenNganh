@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrdersRepo extends JpaRepository<Orders,Integer> {
-	List<Orders> findOrdersByStatusAndAccounts(Integer status,Accounts accounts);
+	List<Orders> findOrdersByStatusAndAccountsOrderByOrderDateDesc(Integer status,Accounts accounts);
 	Orders findOrdersByOrderId(Integer id);
-	Page<Orders> findOrdersByStatusOrderByReceiptDateDesc(Integer status,Pageable pageable);
+	Page<Orders> findOrdersByStatusOrderByOrderDateDesc(Integer status,Pageable pageable);
+	Page<Orders> findAllByOrderByOrderDate(Pageable pageable);
 }

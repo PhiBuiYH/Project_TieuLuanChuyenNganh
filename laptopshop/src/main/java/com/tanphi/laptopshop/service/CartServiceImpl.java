@@ -1,6 +1,6 @@
 package com.tanphi.laptopshop.service;
 
-import com.tanphi.laptopshop.entity.Accounts;
+import com.tanphi.laptopshop.entity.Accounts; 	
 import com.tanphi.laptopshop.entity.Cart;
 import com.tanphi.laptopshop.entity.Product;
 import com.tanphi.laptopshop.entity.enums.IsDeleteStatus;
@@ -52,8 +52,6 @@ public class CartServiceImpl implements CartService {
 		else if(quantityCartRequest<=quantityDBProduct) {
 			product.setQuantity(quantityDBProduct-quantityCartRequest);
 			productRepo.save(product);
-			dbCart.setIsdeleted(IsDeleteStatus.YES.getCode());
-			cartRepo.save(dbCart);
 		}
 		if(dbCart==null)
 		{
@@ -69,6 +67,7 @@ public class CartServiceImpl implements CartService {
 			dbCart.setCartProductQuantity(dbQuantity+cartRequest.getCartProductQuantity());
 			cartRepo.save(dbCart);
 		}
+		
 		
 	}
 

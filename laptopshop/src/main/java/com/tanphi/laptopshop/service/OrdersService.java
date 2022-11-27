@@ -21,4 +21,8 @@ public interface OrdersService {
 
 	void UpdateOrderStatus(Integer ordersID, Integer orderStatus);
 
+	Page<Orders> GetAllOrdersPage(Pageable pageable);
+
+	Orders GetOrdersById(int id);
+
 }

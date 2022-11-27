@@ -2,12 +2,8 @@ package com.tanphi.laptopshop.mapper;
 import com.tanphi.laptopshop.entity.Orders;
 import com.tanphi.laptopshop.response.orders.GetListOrdersByStatus;
 import com.tanphi.laptopshop.response.orders.GetOrdersByStatus;
-import com.tanphi.laptopshop.response.orders.GetOrdersDetailResponse;
-import com.tanphi.laptopshop.response.product.GetAllProductPageResponse;
-import com.tanphi.laptopshop.response.product.GetProductResponse;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class OrdersMapper {
