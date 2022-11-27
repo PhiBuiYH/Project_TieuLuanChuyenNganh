@@ -17,18 +17,7 @@ public class Product {
     private Integer unitprice;
     private Integer discount;
     private String description;
-    private String CPU;
-    private String ram;
-    private String weight;
-    private String hardDiskCapacity;
-    private String hardDiskType;
-    private String screenSize;
-    private String screenResolution;
-    private String graphicCardName;
-    private String graphicCardMemory;
-    private String batteryCapacity;
     private Integer isdeleted;
-    private String osSupplied;
     
     
     public Integer getProductId() {
@@ -85,95 +74,6 @@ public class Product {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getCPU() {
-		return CPU;
-	}
-
-	public void setCPU(String cPU) {
-		CPU = cPU;
-	}
-
-	public String getRam() {
-		return ram;
-	}
-
-	public void setRam(String ram) {
-		this.ram = ram;
-	}
-
-	public String getWeight() {
-		return weight;
-	}
-
-	public void setWeight(String weight) {
-		this.weight = weight;
-	}
-
-	public String getHardDiskCapacity() {
-		return hardDiskCapacity;
-	}
-
-	public void setHardDiskCapacity(String hardDiskCapacity) {
-		this.hardDiskCapacity = hardDiskCapacity;
-	}
-
-	public String getHardDiskType() {
-		return hardDiskType;
-	}
-
-	public void setHardDiskType(String hardDiskType) {
-		this.hardDiskType = hardDiskType;
-	}
-
-	public String getScreenSize() {
-		return screenSize;
-	}
-
-	public void setScreenSize(String screenSize) {
-		this.screenSize = screenSize;
-	}
-
-	public String getScreenResolution() {
-		return screenResolution;
-	}
-
-	public void setScreenResolution(String screenResolution) {
-		this.screenResolution = screenResolution;
-	}
-
-	public String getGraphicCardName() {
-		return graphicCardName;
-	}
-
-	public void setGraphicCardName(String graphicCardName) {
-		this.graphicCardName = graphicCardName;
-	}
-
-	public String getGraphicCardMemory() {
-		return graphicCardMemory;
-	}
-
-	public void setGraphicCardMemory(String graphicCardMemory) {
-		this.graphicCardMemory = graphicCardMemory;
-	}
-
-	public String getBatteryCapacity() {
-		return batteryCapacity;
-	}
-
-	public void setBatteryCapacity(String batteryCapacity) {
-		this.batteryCapacity = batteryCapacity;
-	}
-
-
-	public String getOsSupplied() {
-		return osSupplied;
-	}
-
-	public void setOsSupplied(String osSupplied) {
-		this.osSupplied = osSupplied;
 	}
 
 	public Supplier getSupplier() {

@@ -18,4 +18,5 @@ import java.util.List;
 public interface SupplierRepo extends JpaRepository<Supplier,Integer>{
 	List<Supplier> findSupplierByIsdeleted(Integer status);
 	Supplier findSupplierBySupplierIdAndIsdeleted(Integer id,Integer status);
+	Supplier findSupplierBySupplierNameAndIsdeleted(String name,Integer status);
 }

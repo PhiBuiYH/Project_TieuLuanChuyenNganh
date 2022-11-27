@@ -1,6 +1,6 @@
 package com.tanphi.laptopshop.entity;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,4 +65,12 @@ public class News {
     @JoinColumn(name = "accountId", nullable = false,referencedColumnName = "accountId")
     @JsonBackReference
     private Accounts accounts;
+	public Accounts getAccounts() {
+		return accounts;
+	}
+	public void setAccounts(Accounts accounts) {
+		this.accounts = accounts;
+	}
+	
+	
 }
