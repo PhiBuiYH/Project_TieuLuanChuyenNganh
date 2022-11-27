@@ -60,9 +60,9 @@ public class ProductController {
                                                  @RequestParam(value = "keyword",required = false) String keyword)
     {
 		int pageSize=10;
-    	if(page.isPresent())
+    	if(size.isPresent())
         {
-    		pageSize= page.get()+1;
+    		pageSize= size.get();
         }
     	int pageNumber=1;
     	if(page.isPresent())
@@ -101,7 +101,5 @@ public class ProductController {
         	}
             return ResponseEntity.status(HttpStatus.OK).body(ProductMapper.toResponeGetAllProductPage(listPro, currentPage, totalPages));
 		}
-        
-        
     }
 }

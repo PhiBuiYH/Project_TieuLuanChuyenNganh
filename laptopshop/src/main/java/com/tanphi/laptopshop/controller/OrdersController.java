@@ -18,16 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tanphi.laptopshop.entity.Cart;
 import com.tanphi.laptopshop.entity.Orders;
-import com.tanphi.laptopshop.entity.enums.IsDeleteStatus;
 import com.tanphi.laptopshop.entity.enums.OrderStatus;
-import com.tanphi.laptopshop.exception.BadRequestException;
-import com.tanphi.laptopshop.mapper.CartMapper;
 import com.tanphi.laptopshop.mapper.OrdersMapper;
-import com.tanphi.laptopshop.request.cart.CartRequest;
 import com.tanphi.laptopshop.request.orders.OrderCreateRequest;
-import com.tanphi.laptopshop.service.CartService;
 import com.tanphi.laptopshop.service.OrdersService;
 
 @PreAuthorize("hasAuthority('CUSTOMER')")

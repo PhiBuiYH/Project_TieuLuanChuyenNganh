@@ -29,6 +29,11 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public void CreateSupplier(SupplierRequest request) {
 		// TODO Auto-generated method stub
+		Supplier dbSupplier=supplierRepo.findSupplierBySupplierNameAndIsdeleted(request.getSupplierName(), IsDeleteStatus.NO.getCode());
+		if(dbSupplier!=null)
+		{
+			throw new BadRequestException("Đã tồn nhà cung cấp có tên: "+request.getSupplierName());			
+		}
 		Supplier newSupplier=new Supplier();
 		newSupplier.setImageLink(request.getImageLink());
 		newSupplier.setSupplierName(request.getSupplierName());
@@ -50,6 +55,11 @@ public class SupplierServiceImpl implements SupplierService {
 	public void UpdateSupplier(Integer id, @Valid SupplierRequest request) {
 		// TODO Auto-generated method stub
 		Supplier dbSupplier=supplierRepo.findSupplierBySupplierIdAndIsdeleted(id, IsDeleteStatus.NO.getCode());
+		Supplier dbSupplierByName=supplierRepo.findSupplierBySupplierNameAndIsdeleted(request.getSupplierName(), IsDeleteStatus.NO.getCode());
+		if(dbSupplierByName!=null)
+		{
+			throw new BadRequestException("Đã tồn nhà cung cấp có tên: "+request.getSupplierName());			
+		}
 		if(dbSupplier==null)
 		{
 			throw new BadRequestException("Không có nhà cung cấp có id: "+id);			

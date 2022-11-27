@@ -40,17 +40,6 @@ public class ProductMapper {
         tmp.setUnitprice(product.getUnitprice());
         tmp.setDiscount(product.getDiscount());
         tmp.setDescription(product.getDescription());
-        tmp.setCPU(product.getCPU());
-        tmp.setRam(product.getRam());
-        tmp.setWeight(product.getWeight());
-        tmp.setHardDiskCapacity(product.getHardDiskCapacity());
-        tmp.setHardDiskType(product.getHardDiskType());
-        tmp.setScreenSize(product.getScreenSize());
-        tmp.setScreenResolution(product.getScreenResolution());
-        tmp.setGraphicCardName(product.getGraphicCardName());
-        tmp.setGraphicCardMemory(product.getGraphicCardMemory());
-        tmp.setBatteryCapacity(product.getBatteryCapacity());
-        tmp.setOsSupplied(product.getOsSupplied());
         return tmp;
     }
 

@@ -22,4 +22,6 @@ public interface ProductRepo extends JpaRepository<Product,Integer>{
     Page<Product> findByIsdeleted(Integer status,Pageable pageable);
     @Query("Select p from Product p where p.productName like %:title% and p.isdeleted =:status")
     Page<Product> findByProductNameContainingAndIsdeleted(String title,Integer status,Pageable pageable);
+    Product findByProductNameAndIsdeleted(String productName,Integer status);
+    Product findByProductNameAndProductIdNotAndIsdeleted(String productName,Integer id,Integer status);
 }
