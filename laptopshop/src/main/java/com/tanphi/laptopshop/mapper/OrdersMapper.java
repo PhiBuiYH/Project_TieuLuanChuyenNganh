@@ -31,6 +31,8 @@ public class OrdersMapper {
 		tmp.setReceiptDate(orders.getOrderDate());
 		tmp.setShipping(orders.getShipping());
 		tmp.setTotalAmount(orders.getTotalAmount());
+		tmp.setReceiptName(orders.getRecipientname());
+		tmp.setPhoneNumber(orders.getPhonenumber());
 		return tmp;
 	}
 }

@@ -52,6 +52,8 @@ public class OrdersServiceImpl implements OrdersService {
 			orders.setAddress(orderCreateRequest.getAddress());
 			orders.setCustomerNote(orderCreateRequest.getCustomerNote());
 			orders.setTotalAmount(orderCreateRequest.getTotal().intValue());
+			orders.setPhonenumber(orderCreateRequest.getPhoneNumber());
+			orders.setRecipientname(orderCreateRequest.getRecipientname());
 			Orders newOrders=ordersRepo.save(orders);
 			for(CartRequest cartRequest:orderCreateRequest.getCartItemList())
 			{

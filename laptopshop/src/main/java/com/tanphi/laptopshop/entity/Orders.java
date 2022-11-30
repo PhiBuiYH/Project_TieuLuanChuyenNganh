@@ -22,9 +22,27 @@ public class Orders {
     private String customerNote;
     private Integer status;
     private String address;
-    
+    private String phonenumber;
+    private String recipientname;
         
-    public String getAddress() {
+    
+    public String getRecipientname() {
+		return recipientname;
+	}
+
+	public void setRecipientname(String recipientname) {
+		this.recipientname = recipientname;
+	}
+
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+
+	public String getAddress() {
 		return address;
 	}
 
