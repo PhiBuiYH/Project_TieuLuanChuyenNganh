@@ -45,6 +45,7 @@ public class ReviewsServiceImpl implements ReviewsService {
 			newReview.setContents(request.getContents());
 			newReview.setRate(request.getRate());
 			newReview.setReviewsDate(Timestamp.from(Instant.now()));
+			newReview.setIsdeleted(IsDeleteStatus.NO.getCode());
 			ReviewsIDKey reviewsIDKey=new ReviewsIDKey();
 			reviewsIDKey.setAccountId(request.getAccountId());
 			reviewsIDKey.setOrderId(request.getOrderId());

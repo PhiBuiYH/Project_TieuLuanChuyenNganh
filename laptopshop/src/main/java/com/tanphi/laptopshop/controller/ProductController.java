@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping("/all")
-	public ResponseEntity<Object> getListProduct(@RequestParam(value = "page", required = false) Optional<Integer> page) {
+	public ResponseEntity<Object> getListProduct(@RequestParam(value = "page", required = false) Optional<Integer> page) throws ParseException {
 		if (page.isPresent()) {
 			int pageNumber = page.get();
 			page = Optional.of(pageNumber - 1);
@@ -46,7 +47,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getProductById(@PathVariable int id) {
+	public ResponseEntity<?> getProductById(@PathVariable int id) throws ParseException {
 		Product product = productService.getProductById(id);
 		if (product == null) {
 			throw new BadRequestException("Không có sản phẫm có id: " + String.valueOf(id));
@@ -57,7 +58,7 @@ public class ProductController {
 	@GetMapping("/search")
     public ResponseEntity<Object> getListProductByKeyword(@RequestParam(value = "page",required = false) Optional<Integer> page,
     		@RequestParam(value = "size",required = false) Optional<Integer> size,
-                                                 @RequestParam(value = "keyword",required = false) String keyword)
+                                                 @RequestParam(value = "keyword",required = false) String keyword) throws ParseException
     {
 		int pageSize=10;
     	if(size.isPresent())

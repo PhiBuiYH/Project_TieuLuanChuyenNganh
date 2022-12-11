@@ -6,12 +6,13 @@ import com.tanphi.laptopshop.response.product.GetAllProductPageResponse;
 import com.tanphi.laptopshop.response.product.GetProductResponse;
 import com.tanphi.laptopshop.response.reviews.GetListReviewsResponse;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class ProductMapper {
-    public static List<GetProductResponse> toResponeGetAllProduct(List<Product> productList)
+    public static List<GetProductResponse> toResponeGetAllProduct(List<Product> productList) throws ParseException
     {
         List<GetProductResponse> list=new ArrayList<>();
         for(Product product:productList) {
@@ -20,7 +21,7 @@ public class ProductMapper {
         }
         return list;
     }
-    public static GetProductResponse toResponeGetProduct(Product product)
+    public static GetProductResponse toResponeGetProduct(Product product) throws ParseException
     {
     	GetProductResponse tmp = new GetProductResponse();
     	GetListReviewsResponse tmpReviews=new GetListReviewsResponse();
@@ -43,7 +44,7 @@ public class ProductMapper {
         return tmp;
     }
 
-	public static GetAllProductPageResponse toResponeGetAllProductPage(List<Product> productList,Integer currentPage,Integer totalPage) {
+	public static GetAllProductPageResponse toResponeGetAllProductPage(List<Product> productList,Integer currentPage,Integer totalPage) throws ParseException {
 		GetAllProductPageResponse tmp=new GetAllProductPageResponse();
 		tmp.setCurrentPage(currentPage);
 		tmp.setTotalPage(totalPage);
