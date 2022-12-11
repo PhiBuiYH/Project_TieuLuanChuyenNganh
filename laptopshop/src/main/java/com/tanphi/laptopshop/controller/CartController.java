@@ -1,5 +1,6 @@
 package com.tanphi.laptopshop.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -30,7 +31,7 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	@GetMapping("/{customerId}")
-    public ResponseEntity<?> getListCartByCustomer(@PathVariable int customerId)
+    public ResponseEntity<?> getListCartByCustomer(@PathVariable int customerId) throws ParseException
     {
 		List<Cart> listCarts=cartService.getListCartByCustomer(customerId);
 		if(listCarts==null || listCarts.size()==0)
