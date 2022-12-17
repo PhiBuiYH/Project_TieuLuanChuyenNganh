@@ -1,6 +1,7 @@
 package com.tanphi.laptopshop.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -24,6 +25,7 @@ import com.tanphi.laptopshop.exception.BadRequestException;
 import com.tanphi.laptopshop.mapper.OrdersMapper;
 import com.tanphi.laptopshop.request.orders.OrderCreateRequest;
 import com.tanphi.laptopshop.service.OrdersService;
+import com.tanphi.laptopshop.service.ReviewsService;
 
 @PreAuthorize("hasAuthority('CUSTOMER')")
 @RestController
@@ -31,6 +33,7 @@ import com.tanphi.laptopshop.service.OrdersService;
 public class OrdersController {
 	@Autowired
 	private OrdersService ordersService;
+	@Autowired ReviewsService reviewsService;
 	
 	
 	@GetMapping("/customer/{id}")
@@ -84,7 +87,8 @@ public class OrdersController {
 			status=OrderStatus.WAITING_FOR_APPROVAL.getCode();
 		}
 		List<Orders> listOrders= ordersService.getOrdersByStatus(customerID,status);
-		return ResponseEntity.ok(OrdersMapper.toResponseGetListOrdersByStatus(listOrders,strStatus,status));
+		Map<String,Boolean> mapReviewById=reviewsService.getReviewById(customerID);
+		return ResponseEntity.ok(OrdersMapper.toResponseGetListOrdersByStatusIsReviewd(listOrders,strStatus,status,mapReviewById));
 	}
 	
 	@PutMapping("/cancel/{customerID}")

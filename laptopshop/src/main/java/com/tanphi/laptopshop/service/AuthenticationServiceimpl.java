@@ -5,8 +5,6 @@ import com.tanphi.laptopshop.entity.enums.ActiveAccountStatus;
 import com.tanphi.laptopshop.entity.enums.AuthProvider;
 import com.tanphi.laptopshop.entity.enums.Roles;
 import com.tanphi.laptopshop.exception.BadRequestException;
-import com.tanphi.laptopshop.exception.DuplicateRecoredException;
-import com.tanphi.laptopshop.exception.SendMailException;
 import com.tanphi.laptopshop.repository.AccountsRepo;
 import com.tanphi.laptopshop.request.register.RegistrationRequest;
 import com.tanphi.laptopshop.security.JwtProvider;
@@ -148,10 +146,14 @@ public class AuthenticationServiceimpl implements AuthenticationService {
 	@Override
 	public String passwordReset(String email, String password) {
 		Accounts account = accountsRepo.findAccountsByGmail(email);
-		account.setPasswords(BCrypt.hashpw(password, BCrypt.gensalt(12)));
-		account.setPasswordresetCode(null);
-		accountsRepo.save(account);
-		return "Mật khẩu đã thay đổi thành công";
+		if(account.getPasswordresetCode()!=null)
+		{
+			account.setPasswords(BCrypt.hashpw(password, BCrypt.gensalt(12)));
+			account.setPasswordresetCode(null);
+			accountsRepo.save(account);
+			return "Mật khẩu đã thay đổi thành công";
+		}
+		return "Mật khẩu không thể thay đổi";
 	}
 
 	@Override
@@ -179,5 +181,15 @@ public class AuthenticationServiceimpl implements AuthenticationService {
 	@Override
 	public Accounts updateOauth2User(Accounts accounts, String provider, OAuth2UserInfo oAuth2UserInfo) {
 		return accounts;
+	}
+
+	@Override
+	public String updatePassword(Integer id, String password) {
+		// TODO Auto-generated method stub
+		Accounts account = accountsRepo.findAccountsByAccountId(id);
+		account.setPasswords(BCrypt.hashpw(password, BCrypt.gensalt(12)));
+		account.setPasswordresetCode(null);
+		accountsRepo.save(account);
+		return "Mật khẩu đã thay đổi thành công";
 	}
 }

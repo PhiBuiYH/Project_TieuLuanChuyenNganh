@@ -45,4 +45,7 @@ public class AuthenticationMapper {
     public String passwordReset(String email, String password) {
         return authenticationService.passwordReset(email, password);
     }
+    public String updatePassword(Integer id, String password) {
+        return authenticationService.updatePassword(id, password);
+    }
 }
