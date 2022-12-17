@@ -2,9 +2,6 @@ package com.tanphi.laptopshop.response.orders;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
-
-import com.tanphi.laptopshop.entity.OrderDetail;
 
 import lombok.Data;
 @Data

@@ -9,4 +9,5 @@ public class GetOrdersDetailResponse {
 	private String productName;
 	private String imgLink;
 	private Integer quantity;
+	private Boolean isReviewed;
 }

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,6 @@ import com.tanphi.laptopshop.exception.BadRequestException;
 import com.tanphi.laptopshop.exception.NotFoundException;
 import com.tanphi.laptopshop.request.authen.AuthenticationRequest;
 import com.tanphi.laptopshop.request.authen.PasswordResetRequest;
-import com.tanphi.laptopshop.security.UserPrincipal;
 import com.tanphi.laptopshop.service.AuthenticationMapper;
 import com.tanphi.laptopshop.service.CustomAuthenticationProviderService;
 
@@ -82,22 +80,9 @@ public class AuthenticationController {
         {
             return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.NOT_ACCEPTABLE);
         }
-
-        return ResponseEntity.ok(authenticationMapper.passwordReset(passwordReset.getEmail(), passwordReset.getPassword()));
+        String message=authenticationMapper.passwordReset(passwordReset.getEmail(),passwordReset.getPassword());
+        ApiResponse apiResponse=new ApiResponse();
+        apiResponse.setMessage(message);
+        return ResponseEntity.ok(apiResponse);
     }
-
-    @PutMapping("/edit/password")
-    public ResponseEntity<?> updateUserPassword(@AuthenticationPrincipal UserPrincipal user,@Valid @RequestBody PasswordResetRequest passwordReset,
-                                                     BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors(),HttpStatus.NOT_ACCEPTABLE);
-        }
-        if(passwordReset.getPassword() != null &&!(passwordReset.getPassword().equals(passwordReset.getRepassword())))
-        {
-            throw new BadRequestException("Mật khẩu không ăn khớp");
-        }
-        return ResponseEntity.ok(authenticationMapper.passwordReset(user.getUsername(), passwordReset.getPassword()));
-    }
-
-
 }

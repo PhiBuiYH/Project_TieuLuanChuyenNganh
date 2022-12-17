@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class PasswordResetRequest {
+	private Integer accountId;
     @Email(message = "Nhập email đúng định dạng")
     private String email;
 

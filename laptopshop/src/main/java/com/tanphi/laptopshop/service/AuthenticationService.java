@@ -22,4 +22,6 @@ public interface AuthenticationService {
     Accounts registerOauth2User(String provider, OAuth2UserInfo oAuth2UserInfo);
 
     Accounts updateOauth2User(Accounts accounts, String provider, OAuth2UserInfo oAuth2UserInfo);
+
+	String updatePassword(Integer id, String password);
 }
