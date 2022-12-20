@@ -101,4 +101,30 @@ public class ProductServiceImpl implements ProductService {
 		dbProductById.setIsdeleted(IsDeleteStatus.YES.getCode());
 		productRepo.save(dbProductById);
 	}
+	@Override
+	public void UpdateStatusProduct(ProductRequest request) {
+		// TODO Auto-generated method stub
+		Product dbProductById=productRepo.findById(request.getProductId()).orElse(null);
+		if(dbProductById==null)
+		{
+			throw new BadRequestException("Sản phẫm không tồn tại");
+		}
+		dbProductById.setIsdeleted(request.getIsDeleted());
+		productRepo.save(dbProductById);
+	}
+	@Override
+	public Page<Product> getListProductAdmin(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productRepo.findAll(pageable);
+	}
+	@Override
+	public Product getProductByIdAdmin(int id) {
+		// TODO Auto-generated method stub
+		return productRepo.findProductByProductId(id);
+	}
+	@Override
+	public Page<Product> getListProductAdminByKeyword(Pageable pageable, String keyword) {
+		// TODO Auto-generated method stub
+		return productRepo.findByProductNameContaining(keyword, pageable);
+	}
 }

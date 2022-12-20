@@ -29,7 +29,8 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping("/all")
-	public ResponseEntity<Object> getListProduct(@RequestParam(value = "page", required = false) Optional<Integer> page) throws ParseException {
+	public ResponseEntity<Object> getListProduct(@RequestParam(value = "page", required = false) Optional<Integer> page,
+			@RequestParam(value = "size", required = false) Optional<Integer> size) throws ParseException {
 		if (page.isPresent()) {
 			int pageNumber = page.get();
 			page = Optional.of(pageNumber - 1);
@@ -37,7 +38,11 @@ public class ProductController {
 		} else {
 			page = Optional.of(0);
 		}
-		Pageable pageable = PageRequest.of(page.get(), 5);
+		int pageSize = 10;
+		if (size.isPresent()) {
+			pageSize = size.get();
+		}
+		Pageable pageable = PageRequest.of(page.get(), pageSize);
 		Page<Product> list = productService.getListProductCustomer(pageable);
 		int totalPages = list.getTotalPages();
 		int currentPage = list.getNumber() + 1;
@@ -56,51 +61,46 @@ public class ProductController {
 	}
 
 	@GetMapping("/search")
-    public ResponseEntity<Object> getListProductByKeyword(@RequestParam(value = "page",required = false) Optional<Integer> page,
-    		@RequestParam(value = "size",required = false) Optional<Integer> size,
-                                                 @RequestParam(value = "keyword",required = false) String keyword) throws ParseException
-    {
-		int pageSize=10;
-    	if(size.isPresent())
-        {
-    		pageSize= size.get();
-        }
-    	int pageNumber=1;
-    	if(page.isPresent())
-        {
-            pageNumber= page.get();
-            page=Optional.of(pageNumber-1);
-
-        }
-        else{
-            page=Optional.of(0);
-        }
-    	Pageable pageable= PageRequest.of(page.get(),pageSize);
-    	Page<Product> listAllProductPage=null;
-    	Page<Product> listProductByKeywordPage=null;
-        if(keyword.isEmpty() ||keyword==null)
-        {
-        	listAllProductPage=productService.getListProductCustomer(pageable);
-        	int totalPages=listAllProductPage.getTotalPages();
-            int currentPage=listAllProductPage.getNumber()+1;
-            List<Product> listPro=listAllProductPage.getContent();
-            if(listPro==null || listPro.size()==0)
-        	{
-        		throw new BadRequestException("Không tìm được sản phẫm");
-        	}
-            return ResponseEntity.status(HttpStatus.OK).body(ProductMapper.toResponeGetAllProductPage(listPro, currentPage, totalPages));
-        }
-        else {
-        	//String keywordSearch="%"+keyword+"%";
-        	listProductByKeywordPage=productService.getListProductCustomerByKeyword(pageable, keyword);
-        	int totalPages=listProductByKeywordPage.getTotalPages();
-            int currentPage=listProductByKeywordPage.getNumber()+1;
-            List<Product> listPro=listProductByKeywordPage.getContent();
-            if(listPro==null || listPro.size()==0)
-        	{
-        		throw new BadRequestException("Không tìm được sản phẫm");
-        	}
-            return ResponseEntity.status(HttpStatus.OK).body(ProductMapper.toResponeGetAllProductPage(listPro, currentPage, totalPages));
+	public ResponseEntity<Object> getListProductByKeyword(
+			@RequestParam(value = "page", required = false) Optional<Integer> page,
+			@RequestParam(value = "size", required = false) Optional<Integer> size,
+			@RequestParam(value = "keyword", required = false) String keyword) throws ParseException {
+		int pageSize = 10;
+		if (size.isPresent()) {
+			pageSize = size.get();
 		}
-    }
+		int pageNumber = 1;
+		if (page.isPresent()) {
+			pageNumber = page.get();
+			page = Optional.of(pageNumber - 1);
+
+		} else {
+			page = Optional.of(0);
+		}
+		Pageable pageable = PageRequest.of(page.get(), pageSize);
+		Page<Product> listAllProductPage = null;
+		Page<Product> listProductByKeywordPage = null;
+		if (keyword.isEmpty() || keyword == null) {
+			listAllProductPage = productService.getListProductCustomer(pageable);
+			int totalPages = listAllProductPage.getTotalPages();
+			int currentPage = listAllProductPage.getNumber() + 1;
+			List<Product> listPro = listAllProductPage.getContent();
+			if (listPro == null || listPro.size() == 0) {
+				throw new BadRequestException("Không tìm được sản phẫm");
+			}
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(ProductMapper.toResponeGetAllProductPage(listPro, currentPage, totalPages));
+		} else {
+			// String keywordSearch="%"+keyword+"%";
+			listProductByKeywordPage = productService.getListProductCustomerByKeyword(pageable, keyword);
+			int totalPages = listProductByKeywordPage.getTotalPages();
+			int currentPage = listProductByKeywordPage.getNumber() + 1;
+			List<Product> listPro = listProductByKeywordPage.getContent();
+			if (listPro == null || listPro.size() == 0) {
+				throw new BadRequestException("Không tìm được sản phẫm");
+			}
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(ProductMapper.toResponeGetAllProductPage(listPro, currentPage, totalPages));
+		}
+	}
 }

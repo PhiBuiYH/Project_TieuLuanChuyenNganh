@@ -44,12 +44,19 @@ public class ProductMapper {
         return tmp;
     }
 
-	public static GetAllProductPageResponse toResponeGetAllProductPage(List<Product> productList,Integer currentPage,Integer totalPage) throws ParseException {
-		GetAllProductPageResponse tmp=new GetAllProductPageResponse();
+	public static GetAllProductPageResponse<GetProductResponse> toResponeGetAllProductPage(List<Product> productList,Integer currentPage,Integer totalPage) throws ParseException {
+		GetAllProductPageResponse<GetProductResponse> tmp=new GetAllProductPageResponse<>();
 		tmp.setCurrentPage(currentPage);
 		tmp.setTotalPage(totalPage);
 		List<GetProductResponse> listProducts=toResponeGetAllProduct(productList);
 		tmp.setListProducts(listProducts);
+		return tmp;
+	}
+	public static GetAllProductPageResponse<Product> toResponeGetAllProductPageAdmin(List<Product> productList,Integer currentPage,Integer totalPage) throws ParseException {
+		GetAllProductPageResponse<Product> tmp=new GetAllProductPageResponse<>();
+		tmp.setCurrentPage(currentPage);
+		tmp.setTotalPage(totalPage);
+		tmp.setListProducts(productList);
 		return tmp;
 	}
 }
