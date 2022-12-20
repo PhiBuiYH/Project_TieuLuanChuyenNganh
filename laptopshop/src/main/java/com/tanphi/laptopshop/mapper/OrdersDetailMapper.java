@@ -14,6 +14,7 @@ public class OrdersDetailMapper {
 		GetOrdersDetailResponse tmp=new GetOrdersDetailResponse();
 		tmp.setOrderId(orderDetail.getOrderDetailIDKey().getOrderId());
 		tmp.setProductId(orderDetail.getOrderDetailIDKey().getProductId());
+		tmp.setPrice(orderDetail.getProduct().getUnitprice());
 		tmp.setImgLink(orderDetail.getProduct().getImage());
 		tmp.setProductName(orderDetail.getProduct().getProductName());;
 		tmp.setQuantity(orderDetail.getQuantity());
@@ -46,6 +47,7 @@ public class OrdersDetailMapper {
 		tmp.setOrderId(orderDetail.getOrderDetailIDKey().getOrderId());
 		tmp.setProductId(orderDetail.getOrderDetailIDKey().getProductId());
 		tmp.setImgLink(orderDetail.getProduct().getImage());
+		tmp.setPrice(orderDetail.getProduct().getUnitprice());
 		tmp.setProductName(orderDetail.getProduct().getProductName());;
 		tmp.setQuantity(orderDetail.getQuantity());
 		String key=String.join("_", orderDetail.getOrderDetailIDKey().getOrderId().toString(),orderDetail.getOrderDetailIDKey().getProductId().toString());

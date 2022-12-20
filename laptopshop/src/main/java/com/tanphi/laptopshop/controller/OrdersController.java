@@ -91,7 +91,7 @@ public class OrdersController {
 		return ResponseEntity.ok(OrdersMapper.toResponseGetListOrdersByStatusIsReviewd(listOrders,strStatus,status,mapReviewById));
 	}
 	
-	@PutMapping("/cancel/{customerID}")
+	@PutMapping("/cancel/{ordersID}")
 	public ResponseEntity<?> cancleOrders(@PathVariable Integer ordersID) {
 		ordersService.cancleOrders(ordersID);
 		ApiResponse apiResponse=new ApiResponse();
