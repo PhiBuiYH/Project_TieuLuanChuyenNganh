@@ -2,13 +2,9 @@ package com.tanphi.laptopshop.service;
 
 
 import com.tanphi.laptopshop.entity.Product;
-import com.tanphi.laptopshop.request.cart.CartRequest;
 import com.tanphi.laptopshop.request.product.ProductRequest;
 
 import java.util.List;
-
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,4 +22,12 @@ public interface ProductService {
 	void UpdateProduct(ProductRequest request);
 
 	void DeleteProduct(Integer productId);
+
+	void UpdateStatusProduct(ProductRequest request);
+
+	Page<Product> getListProductAdmin(Pageable pageable);
+
+	Product getProductByIdAdmin(int id);
+
+	Page<Product> getListProductAdminByKeyword(Pageable pageable, String keyword);
 }
