@@ -80,15 +80,34 @@ public class OrdersServiceImpl implements OrdersService {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
 	@Override
 	public void cancleOrders(Integer ordersID) {
 		Orders orders=ordersRepo.findOrdersByOrderId(ordersID);
 		if(orders==null)
 		{
 			throw new BadRequestException("Đơn hàng không tồn tại");
+		}
+		if(orders.getStatus()!=OrderStatus.WAITING_FOR_APPROVAL.getCode())
+		{
+			Integer status=orders.getStatus();
+			String strStatus="";
+			if(OrderStatus.APPROVED.getCode()==status)
+			{
+				strStatus=OrderStatus.APPROVED.getMessage();
+			}
+			else if(OrderStatus.CANCELED.getCode()==status)
+			{
+				strStatus=OrderStatus.CANCELED.getMessage();
+			}
+			else if(OrderStatus.DELIVERD.getCode()==status)
+			{
+				strStatus=OrderStatus.DELIVERD.getMessage();
+			}
+			else if(OrderStatus.DELIVERING.getCode()==status)
+			{
+				strStatus=OrderStatus.DELIVERING.getMessage();
+			}
+			throw new BadRequestException("Đơn hàng không thể hủy vì ở trạng thái: "+strStatus);
 		}
 		orders.setStatus(OrderStatus.CANCELED.getCode());
 		ordersRepo.save(orders);

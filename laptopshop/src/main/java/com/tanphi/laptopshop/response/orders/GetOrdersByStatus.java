@@ -15,5 +15,6 @@ public class GetOrdersByStatus {
 	private String address;
 	private String phoneNumber;
 	private String receiptName;
+	private Integer totalQuantity;
 	private List<GetOrdersDetailResponse> lstOrdersDetail;
 }

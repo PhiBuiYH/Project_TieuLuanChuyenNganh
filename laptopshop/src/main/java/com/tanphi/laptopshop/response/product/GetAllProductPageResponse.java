@@ -2,10 +2,10 @@ package com.tanphi.laptopshop.response.product;
 
 import java.util.List;
 
-public class GetAllProductPageResponse {
+public class GetAllProductPageResponse<T> {
 	private Integer totalPage;
 	private Integer currentPage;
-	private List<GetProductResponse> listProducts;
+	private List<T> listProducts;
 	public Integer getTotalPage() {
 		return totalPage;
 	}
@@ -18,11 +18,11 @@ public class GetAllProductPageResponse {
 	public void setCurrentPage(Integer currentPage) {
 		this.currentPage = currentPage;
 	}
-	public List<GetProductResponse> getListProducts() {
+	public List<T> getListProducts() {
 		return listProducts;
 	}
-	public void setListProducts(List<GetProductResponse> listProducts) {
+	public void setListProducts(List<T> listProducts) {
 		this.listProducts = listProducts;
-	}
+	}	
 	
 }

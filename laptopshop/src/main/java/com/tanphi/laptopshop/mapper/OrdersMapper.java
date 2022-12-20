@@ -2,6 +2,7 @@ package com.tanphi.laptopshop.mapper;
 import com.tanphi.laptopshop.entity.Orders;
 import com.tanphi.laptopshop.response.orders.GetListOrdersByStatus;
 import com.tanphi.laptopshop.response.orders.GetOrdersByStatus;
+import com.tanphi.laptopshop.response.orders.GetOrdersDetailResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,18 @@ public class OrdersMapper {
 		tmp.setAddress(orders.getAddress());
 		tmp.setCustomerNote(orders.getCustomerNote());
 		tmp.setOrderDate(orders.getOrderDate());
-		tmp.setLstOrdersDetail(OrdersDetailMapper.toResponseGetListOrdersDetailIsReviewed(orders.getOrderDetailSet(), mapReviews));
+		List<GetOrdersDetailResponse> listOrderDetailResponsesReviews=OrdersDetailMapper.toResponseGetListOrdersDetailIsReviewed(orders.getOrderDetailSet(), mapReviews);
+		if(listOrderDetailResponsesReviews.size()>0)
+		{
+			Integer sum = listOrderDetailResponsesReviews.stream()
+					  .map(x -> x.getQuantity())
+					  .reduce(0, Integer::sum);
+			tmp.setTotalQuantity(sum);
+		}
+		else {
+			tmp.setTotalQuantity(0);
+		}
+		tmp.setLstOrdersDetail(listOrderDetailResponsesReviews);
 		tmp.setOrderId(orders.getOrderId());
 		tmp.setReceiptDate(orders.getOrderDate());
 		tmp.setShipping(orders.getShipping());
@@ -56,7 +68,18 @@ public class OrdersMapper {
 		tmp.setAddress(orders.getAddress());
 		tmp.setCustomerNote(orders.getCustomerNote());
 		tmp.setOrderDate(orders.getOrderDate());
-		tmp.setLstOrdersDetail(OrdersDetailMapper.toResponseGetListOrdersDetail(orders.getOrderDetailSet()));
+		List<GetOrdersDetailResponse> listOrderDetailResponses=OrdersDetailMapper.toResponseGetListOrdersDetail(orders.getOrderDetailSet());
+		if(listOrderDetailResponses.size()>0)
+		{
+			Integer sum = listOrderDetailResponses.stream()
+					  .map(x -> x.getQuantity())
+					  .reduce(0, Integer::sum);
+			tmp.setTotalQuantity(sum);
+		}
+		else {
+			tmp.setTotalQuantity(0);
+		}
+		tmp.setLstOrdersDetail(listOrderDetailResponses);
 		tmp.setOrderId(orders.getOrderId());
 		tmp.setReceiptDate(orders.getOrderDate());
 		tmp.setShipping(orders.getShipping());
