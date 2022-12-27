@@ -22,7 +22,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 	@Autowired
     private JwtProvider jwtProvider;
     @Autowired
-    AccountsRepo accountsRepo;
+    private AccountsRepo accountsRepo;
 
     @Value("${hostname}")
     private String hostname;
